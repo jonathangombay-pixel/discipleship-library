@@ -583,6 +583,7 @@ footer p {
 
     <div class="books" id="bookList">
 
+
         <!-- LEVEL 1 -->
 
         <div
@@ -615,7 +616,7 @@ footer p {
                     <button
                         type="button"
                         class="read-button"
-                        onclick="openBook('books/book1.pdf', 'Discipleship Level 1')"
+                        onclick="openBook('books/book1.pdf')"
                     >
                         📖 Read
                     </button>
@@ -667,7 +668,7 @@ footer p {
                     <button
                         type="button"
                         class="read-button"
-                        onclick="openBook('books/book2.pdf', 'Discipleship Level 2')"
+                        onclick="openBook('books/book2.pdf')"
                     >
                         📖 Read
                     </button>
@@ -719,7 +720,7 @@ footer p {
                     <button
                         type="button"
                         class="read-button"
-                        onclick="openBook('books/book3.pdf', 'Discipleship Level 3')"
+                        onclick="openBook('books/book3.pdf')"
                     >
                         📖 Read
                     </button>
@@ -892,15 +893,32 @@ document
 
 
 /* =========================
-   READ PDF ONLINE
+   READ PDF
+   MOBILE + COMPUTER SAFE
 ========================= */
 
-function openBook(file, title) {
+function openBook(file) {
 
     const fullUrl =
         new URL(file, window.location.href).href;
 
+    /*
+       Open the actual PDF directly.
+
+       This allows:
+       - Android phones
+       - Samsung phones
+       - Oppo phones
+       - iPhones
+       - iPads
+       - Windows computers
+       - Mac computers
+
+       to use their own built-in PDF viewer.
+    */
+
     window.open(fullUrl, "_blank");
+
 }
 
 
@@ -918,7 +936,8 @@ async function downloadBook(file, filename) {
             throw new Error("Book not found.");
         }
 
-        const blob = await response.blob();
+        const blob =
+            await response.blob();
 
         const url =
             window.URL.createObjectURL(blob);
@@ -927,6 +946,7 @@ async function downloadBook(file, filename) {
             document.createElement("a");
 
         link.href = url;
+
         link.download = filename;
 
         document.body.appendChild(link);
@@ -939,11 +959,20 @@ async function downloadBook(file, filename) {
 
     } catch (error) {
 
-        alert(
-            "The book could not be downloaded. Make sure the PDF is inside the books folder and has the correct name."
-        );
+        /*
+           Fallback:
+           If the browser doesn't allow
+           the automatic download, open
+           the PDF directly instead.
+        */
+
+        const fullUrl =
+            new URL(file, window.location.href).href;
+
+        window.open(fullUrl, "_blank");
 
     }
+
 }
 
 </script>
