@@ -1,0 +1,1078 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Discipleship Library</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #000;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* =========================
+   PASSWORD SCREEN
+========================= */
+
+#password-screen {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    padding: 20px;
+}
+
+.password-box {
+    width: 100%;
+    max-width: 450px;
+    background: #171717;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+}
+
+.password-box h1 {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.password-box p {
+    color: #ddd;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.password-input {
+    width: 100%;
+    height: 48px;
+    padding: 0 50px 0 15px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    outline: none;
+    font-size: 16px;
+    background: white;
+    color: black;
+}
+
+.eye-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.password-button {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 4px;
+    background: #ffa41c;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.password-button:hover {
+    background: #ff9900;
+}
+
+.password-error {
+    color: #ff5c5c;
+    margin-top: 15px;
+    display: none;
+    font-size: 14px;
+}
+
+/* =========================
+   WEBSITE
+========================= */
+
+.top-bar {
+    background: white;
+    color: black;
+    min-height: 75px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    padding: 10px 35px;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+    white-space: nowrap;
+    color: black;
+}
+
+.logo span {
+    color: #f3a847;
+}
+
+.search-box {
+    flex: 1;
+    display: flex;
+    height: 45px;
+    border: 1px solid #aaa;
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0 15px;
+    font-size: 16px;
+    background: white;
+    color: black;
+}
+
+.search-button {
+    width: 60px;
+    border: none;
+    background: #eeeeee;
+    color: black;
+    cursor: pointer;
+    font-size: 21px;
+}
+
+.top-right {
+    width: 70px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.top-right img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+}
+
+.nav-bar {
+    background: white;
+    color: black;
+    padding: 14px 35px;
+    display: flex;
+    gap: 35px;
+    font-size: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.nav-bar a {
+    color: black;
+}
+
+.nav-bar a:hover {
+    text-decoration: underline;
+}
+
+.hero {
+    background: #000;
+    color: white;
+    text-align: center;
+    padding: 70px 20px;
+    border-bottom: 1px solid #333;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 18px;
+}
+
+.hero p {
+    font-size: 18px;
+    max-width: 750px;
+    margin: auto;
+    line-height: 1.7;
+}
+
+.container {
+    max-width: 1400px;
+    margin: auto;
+    padding: 35px;
+    background: #000;
+}
+
+.section-title {
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+.books {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.book-card {
+    background: #171717;
+    color: white;
+    padding: 18px;
+    min-height: 300px;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    border: 1px solid #333;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    transition: 0.25s;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    border-color: #555;
+}
+
+.book-cover {
+    height: 245px;
+    width: 160px;
+    min-width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    font-size: 21px;
+    font-weight: bold;
+    padding: 15px;
+    background: black;
+    border: 1px solid #555;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.5);
+}
+
+.level-one,
+.level-two,
+.level-three {
+    background: black;
+    color: white;
+}
+
+.book-info {
+    flex: 1;
+}
+
+.book-info h3 {
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
+.book-info p {
+    color: #ddd;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.rating {
+    color: #f3a847;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.read-button,
+.download-button {
+    flex: 1;
+    text-align: center;
+    padding: 10px 7px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    border: none;
+}
+
+.read-button {
+    background: #ffd814;
+    color: black;
+}
+
+.read-button:hover {
+    background: #f7ca00;
+}
+
+.download-button {
+    background: #ffa41c;
+    color: black;
+}
+
+.download-button:hover {
+    background: #ff9900;
+}
+
+.about {
+    background: #000;
+    color: white;
+    padding: 50px 25px;
+    text-align: center;
+    border-top: 1px solid #333;
+}
+
+.about h2 {
+    margin-bottom: 15px;
+}
+
+.about p {
+    max-width: 750px;
+    margin: auto;
+    line-height: 1.7;
+    color: #ddd;
+}
+
+footer {
+    background: #000;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    border-top: 1px solid #333;
+}
+
+footer p {
+    margin: 7px;
+}
+
+/* =========================
+   POWERPOINT READER
+========================= */
+
+#reader-screen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #111;
+    z-index: 100000;
+    flex-direction: column;
+}
+
+.reader-header {
+    height: 60px;
+    background: #171717;
+    border-bottom: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    flex-shrink: 0;
+}
+
+.reader-title {
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.reader-close {
+    border: none;
+    background: #ffa41c;
+    color: black;
+    padding: 9px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.reader-frame {
+    width: 100%;
+    height: calc(100vh - 60px);
+    border: none;
+    background: white;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 1050px) {
+
+    .books {
+        grid-template-columns: 1fr;
+    }
+
+    .book-card {
+        max-width: 800px;
+        margin: auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .top-bar {
+        flex-wrap: wrap;
+        padding: 12px 15px;
+    }
+
+    .logo {
+        width: 100%;
+        text-align: center;
+        font-size: 23px;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .top-right {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+
+    .top-right img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .nav-bar {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 12px 15px;
+        gap: 25px;
+    }
+
+    .hero {
+        padding: 50px 20px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .container {
+        padding: 30px 15px;
+    }
+
+    .book-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .book-cover {
+        width: 180px;
+        min-width: 180px;
+        height: 260px;
+    }
+
+    .buttons {
+        width: 100%;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- PASSWORD SCREEN -->
+
+<div id="password-screen">
+
+    <div class="password-box">
+
+        <h1>🔐 Discipleship Library</h1>
+
+        <p>
+            This library is private.
+            <br>
+            Please enter your access password to continue.
+        </p>
+
+        <div class="password-wrapper">
+
+            <input
+                type="password"
+                id="passwordInput"
+                class="password-input"
+                placeholder="Enter access password"
+            >
+
+            <button
+                type="button"
+                class="eye-button"
+                onclick="togglePassword()"
+                id="eyeButton"
+            >
+                👁️
+            </button>
+
+        </div>
+
+        <button
+            class="password-button"
+            onclick="checkPassword()"
+        >
+            🔓 Access Library
+        </button>
+
+        <div
+            id="passwordError"
+            class="password-error"
+        >
+            Incorrect password. Please try again.
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- MAIN WEBSITE -->
+
+<div id="library-content" style="display: none;">
+
+<header class="top-bar">
+
+    <div class="logo">
+        Discipleship<span>Library</span>
+    </div>
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search discipleship books..."
+        >
+
+        <button
+            class="search-button"
+            onclick="searchBooks()"
+        >
+            🔍
+        </button>
+
+    </div>
+
+    <div class="top-right">
+
+        <img
+            src="logo.png"
+            alt="Church Logo"
+        >
+
+    </div>
+
+</header>
+
+
+<nav class="nav-bar">
+
+    <a href="#">☰ All</a>
+    <a href="#books">Level 1</a>
+    <a href="#books">Level 2</a>
+    <a href="#books">Level 3</a>
+    <a href="#about">About</a>
+
+</nav>
+
+
+<section class="hero">
+
+    <h1>Discipleship Library</h1>
+
+    <p>
+        Access our discipleship teachings
+        online and download the books for free.
+        Grow in knowledge, faith, and service.
+    </p>
+
+</section>
+
+
+<main class="container" id="books">
+
+    <h2 class="section-title">
+        Discipleship Books
+    </h2>
+
+    <div class="books" id="bookList">
+
+
+        <!-- LEVEL 1 -->
+
+        <div
+            class="book-card"
+            data-title="Discipleship Level 1"
+        >
+
+            <div class="book-cover level-one">
+                DISCIPLESHIP
+                <br>
+                LEVEL 1
+            </div>
+
+            <div class="book-info">
+
+                <h3>Discipleship Level 1</h3>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <p>
+                    Foundations of discipleship
+                    and essential teachings for
+                    every believer.
+                </p>
+
+                <div class="buttons">
+
+                    <button
+                        type="button"
+                        class="read-button"
+                        onclick="openBook('books/level1.pptx', 'Discipleship Level 1')"
+                    >
+                        📖 Read
+                    </button>
+
+                    <button
+                        type="button"
+                        class="download-button"
+                        onclick="downloadBook('books/level1.pptx', 'Discipleship_Level_1.pptx')"
+                    >
+                        ⬇ Download
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- LEVEL 2 -->
+
+        <div
+            class="book-card"
+            data-title="Discipleship Level 2"
+        >
+
+            <div class="book-cover level-two">
+                DISCIPLESHIP
+                <br>
+                LEVEL 2
+            </div>
+
+            <div class="book-info">
+
+                <h3>Discipleship Level 2</h3>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <p>
+                    Deeper teachings designed
+                    to help disciples grow and
+                    develop spiritually.
+                </p>
+
+                <div class="buttons">
+
+                    <button
+                        type="button"
+                        class="read-button"
+                        onclick="openBook('books/level2.pptx', 'Discipleship Level 2')"
+                    >
+                        📖 Read
+                    </button>
+
+                    <button
+                        type="button"
+                        class="download-button"
+                        onclick="downloadBook('books/level2.pptx', 'Discipleship_Level_2.pptx')"
+                    >
+                        ⬇ Download
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- LEVEL 3 -->
+
+        <div
+            class="book-card"
+            data-title="Discipleship Level 3"
+        >
+
+            <div class="book-cover level-three">
+                DISCIPLESHIP
+                <br>
+                LEVEL 3
+            </div>
+
+            <div class="book-info">
+
+                <h3>Discipleship Level 3</h3>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <p>
+                    Advanced discipleship teachings
+                    for continued spiritual growth
+                    and maturity.
+                </p>
+
+                <div class="buttons">
+
+                    <button
+                        type="button"
+                        class="read-button"
+                        onclick="openBook('books/level3.pptx', 'Discipleship Level 3')"
+                    >
+                        📖 Read
+                    </button>
+
+                    <button
+                        type="button"
+                        class="download-button"
+                        onclick="downloadBook('books/level3.pptx', 'Discipleship_Level_3.pptx')"
+                    >
+                        ⬇ Download
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<section class="about" id="about">
+
+    <h2>About The Discipleship Library</h2>
+
+    <p>
+        This digital library provides members
+        with easy access to our discipleship
+        teaching materials. All books are
+        available to read and download freely.
+    </p>
+
+</section>
+
+
+<footer>
+
+    <p>
+        <strong>Discipleship Library</strong>
+    </p>
+
+    <p>
+        Free resources for learning,
+        growing, and serving.
+    </p>
+
+    <p>
+        © 2026
+    </p>
+
+</footer>
+
+</div>
+
+
+<!-- POWERPOINT READER -->
+
+<div id="reader-screen">
+
+    <div class="reader-header">
+
+        <div
+            class="reader-title"
+            id="readerTitle"
+        >
+            Discipleship Book
+        </div>
+
+        <button
+            class="reader-close"
+            onclick="closeBook()"
+        >
+            ✕ Close
+        </button>
+
+    </div>
+
+    <iframe
+        id="readerFrame"
+        class="reader-frame"
+        allowfullscreen>
+    </iframe>
+
+</div>
+
+
+<script>
+
+/* =========================
+   PASSWORD
+========================= */
+
+const ACCESS_PASSWORD = "VFM2026";
+
+function checkPassword() {
+
+    const enteredPassword =
+        document.getElementById("passwordInput").value;
+
+    const error =
+        document.getElementById("passwordError");
+
+    if (enteredPassword === ACCESS_PASSWORD) {
+
+        document.getElementById("password-screen").style.display = "none";
+
+        document.getElementById("library-content").style.display = "block";
+
+        error.style.display = "none";
+
+    } else {
+
+        error.style.display = "block";
+
+    }
+}
+
+
+/* =========================
+   SHOW / HIDE PASSWORD
+========================= */
+
+function togglePassword() {
+
+    const passwordInput =
+        document.getElementById("passwordInput");
+
+    const eyeButton =
+        document.getElementById("eyeButton");
+
+    if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+        eyeButton.textContent = "🙈";
+
+    } else {
+
+        passwordInput.type = "password";
+        eyeButton.textContent = "👁️";
+
+    }
+}
+
+
+/* ENTER KEY */
+
+document
+.getElementById("passwordInput")
+.addEventListener("keyup", function(event) {
+
+    if (event.key === "Enter") {
+        checkPassword();
+    }
+
+});
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function searchBooks() {
+
+    const search =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const books =
+        document.querySelectorAll(".book-card");
+
+    books.forEach(function(book) {
+
+        const title =
+            book
+            .getAttribute("data-title")
+            .toLowerCase();
+
+        if (title.includes(search)) {
+
+            book.style.display = "flex";
+
+        } else {
+
+            book.style.display = "none";
+
+        }
+
+    });
+}
+
+
+document
+.getElementById("searchInput")
+.addEventListener("keyup", searchBooks);
+
+
+/* =========================
+   READ POWERPOINT ONLINE
+========================= */
+
+function openBook(file, title) {
+
+    /*
+       Create the FULL public Netlify URL.
+
+       Example:
+       https://your-site.netlify.app/books/level1.pptx
+    */
+
+    const fullUrl =
+        new URL(file, window.location.href).href;
+
+    /*
+       Microsoft Office online viewer
+       will open the PowerPoint inside
+       the website instead of downloading it.
+    */
+
+    const viewerUrl =
+        "https://view.officeapps.live.com/op/embed.aspx?src=" +
+        encodeURIComponent(fullUrl);
+
+    document
+        .getElementById("readerTitle")
+        .textContent = title;
+
+    document
+        .getElementById("readerFrame")
+        .src = viewerUrl;
+
+    document
+        .getElementById("reader-screen")
+        .style.display = "flex";
+
+    document.body.style.overflow = "hidden";
+}
+
+
+/* =========================
+   CLOSE BOOK
+========================= */
+
+function closeBook() {
+
+    document
+        .getElementById("readerFrame")
+        .src = "";
+
+    document
+        .getElementById("reader-screen")
+        .style.display = "none";
+
+    document.body.style.overflow = "";
+}
+
+
+/* =========================
+   DOWNLOAD POWERPOINT
+========================= */
+
+async function downloadBook(file, filename) {
+
+    try {
+
+        const response = await fetch(file);
+
+        if (!response.ok) {
+            throw new Error("PowerPoint not found.");
+        }
+
+        const blob = await response.blob();
+
+        const url =
+            window.URL.createObjectURL(blob);
+
+        const link =
+            document.createElement("a");
+
+        link.href = url;
+        link.download = filename;
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+
+        window.URL.revokeObjectURL(url);
+
+    } catch (error) {
+
+        alert(
+            "The PowerPoint could not be downloaded. Make sure the file is inside the books folder and has the correct name."
+        );
+
+    }
+}
+
+</script>
+
+</body>
+</html>
+```
