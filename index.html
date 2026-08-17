@@ -370,53 +370,6 @@ footer p {
 }
 
 /* =========================
-   PDF READER
-========================= */
-
-#reader-screen {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: #111;
-    z-index: 100000;
-    flex-direction: column;
-}
-
-.reader-header {
-    height: 60px;
-    background: #171717;
-    border-bottom: 1px solid #333;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 15px;
-    flex-shrink: 0;
-}
-
-.reader-title {
-    color: white;
-    font-size: 17px;
-    font-weight: bold;
-}
-
-.reader-close {
-    border: none;
-    background: #ffa41c;
-    color: black;
-    padding: 9px 15px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.reader-frame {
-    width: 100%;
-    height: calc(100vh - 60px);
-    border: none;
-    background: white;
-}
-
-/* =========================
    MOBILE
 ========================= */
 
@@ -630,7 +583,6 @@ footer p {
 
     <div class="books" id="bookList">
 
-
         <!-- LEVEL 1 -->
 
         <div
@@ -825,37 +777,6 @@ footer p {
 </div>
 
 
-<!-- PDF READER -->
-
-<div id="reader-screen">
-
-    <div class="reader-header">
-
-        <div
-            class="reader-title"
-            id="readerTitle"
-        >
-            Discipleship Book
-        </div>
-
-        <button
-            class="reader-close"
-            onclick="closeBook()"
-        >
-            ✕ Close
-        </button>
-
-    </div>
-
-    <iframe
-        id="readerFrame"
-        class="reader-frame"
-        allowfullscreen>
-    </iframe>
-
-</div>
-
-
 <script>
 
 /* =========================
@@ -914,7 +835,9 @@ function togglePassword() {
 }
 
 
-/* ENTER KEY */
+/* =========================
+   ENTER KEY
+========================= */
 
 document
 .getElementById("passwordInput")
@@ -977,37 +900,7 @@ function openBook(file, title) {
     const fullUrl =
         new URL(file, window.location.href).href;
 
-    document
-        .getElementById("readerTitle")
-        .textContent = title;
-
-    document
-        .getElementById("readerFrame")
-        .src = fullUrl;
-
-    document
-        .getElementById("reader-screen")
-        .style.display = "flex";
-
-    document.body.style.overflow = "hidden";
-}
-
-
-/* =========================
-   CLOSE BOOK
-========================= */
-
-function closeBook() {
-
-    document
-        .getElementById("readerFrame")
-        .src = "";
-
-    document
-        .getElementById("reader-screen")
-        .style.display = "none";
-
-    document.body.style.overflow = "";
+    window.open(fullUrl, "_blank");
 }
 
 
