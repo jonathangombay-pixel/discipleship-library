@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Discipleship Library</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #000;
+    color: white;
+}
+
+header {
+    background: white;
+    color: black;
+    padding: 18px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 25px;
+}
+
+header span {
+    color: #f3a847;
+}
+
+.hero {
+    text-align: center;
+    padding: 55px 20px 35px;
+}
+
+.hero h2 {
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: #ccc;
+    line-height: 1.6;
+    max-width: 650px;
+    margin: auto;
+}
+
+.books {
+    max-width: 700px;
+    margin: 20px auto 60px;
+    padding: 20px;
+}
+
+.book-card {
+    background: #171717;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+}
+
+.book-cover {
+    width: 180px;
+    height: 250px;
+    background: #000;
+    border: 1px solid #555;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+.book-card h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.book-card p {
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    flex: 1;
+    border: none;
+    padding: 14px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.read-button {
+    background: #ffd814;
+    color: black;
+}
+
+.download-button {
+    background: #ffa41c;
+    color: black;
+}
+
+.reader {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #111;
+    z-index: 9999;
+    flex-direction: column;
+}
+
+.reader-header {
+    height: 60px;
+    min-height: 60px;
+    background: #171717;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-bottom: 1px solid #333;
+}
+
+.reader-header strong {
+    font-size: 16px;
+}
+
+.close-button {
+    flex: none;
+    background: #ffa41c;
+    color: black;
+    padding: 9px 15px;
+}
+
+.reader-frame {
+    width: 100%;
+    height: calc(100vh - 60px);
+    border: none;
+    background: white;
+}
+
+@media (max-width: 600px) {
+
+    .hero h2 {
+        font-size: 29px;
+    }
+
+    .books {
+        padding: 15px;
+    }
+
+    .book-card {
+        padding: 20px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Discipleship<span>Library</span></h1>
+</header>
+
+<section class="hero">
+    <h2>Discipleship Library</h2>
+
+    <p>
+        Access our discipleship teachings online
+        and download the books for free.
+    </p>
+</section>
+
+<section class="books">
+
+    <div class="book-card">
+
+        <div class="book-cover">
+            DISCIPLESHIP
+            <br>
+            LEVEL 1
+        </div>
+
+        <h3>Discipleship Level 1</h3>
+
+        <p>
+            Foundations of discipleship and essential
+            teachings for every believer.
+        </p>
+
+        <div class="buttons">
+
+            <button
+                class="read-button"
+                onclick="openBook()">
+                📖 Read Online
+            </button>
+
+            <button
+                class="download-button"
+                onclick="downloadBook()">
+                ⬇ Download
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- BOOK READER -->
+
+<div class="reader" id="reader">
+
+    <div class="reader-header">
+
+        <strong>
+            Discipleship Level 1
+        </strong>
+
+        <button
+            class="close-button"
+            onclick="closeBook()">
+            ✕ Close
+        </button>
+
+    </div>
+
+    <iframe
+        id="bookFrame"
+        class="reader-frame">
+    </iframe>
+
+</div>
+
+
+<script>
+
+function openBook() {
+
+    const pdf =
+        "books/book1.pdf";
+
+    document.getElementById("bookFrame").src = pdf;
+
+    document.getElementById("reader").style.display = "flex";
+
+    document.body.style.overflow = "hidden";
+}
+
+
+function closeBook() {
+
+    document.getElementById("bookFrame").src = "";
+
+    document.getElementById("reader").style.display = "none";
+
+    document.body.style.overflow = "";
+}
+
+
+function downloadBook() {
+
+    const link = document.createElement("a");
+
+    link.href = "books/book1.pdf";
+
+    link.download = "Discipleship_Level_1.pdf";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+}
+
+</script>
+
+</body>
+</html>
