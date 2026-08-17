@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -371,7 +370,7 @@ footer p {
 }
 
 /* =========================
-   POWERPOINT READER
+   PDF READER
 ========================= */
 
 #reader-screen {
@@ -664,7 +663,7 @@ footer p {
                     <button
                         type="button"
                         class="read-button"
-                        onclick="openBook('books/level1.pptx', 'Discipleship Level 1')"
+                        onclick="openBook('books/book1.pdf', 'Discipleship Level 1')"
                     >
                         📖 Read
                     </button>
@@ -672,7 +671,7 @@ footer p {
                     <button
                         type="button"
                         class="download-button"
-                        onclick="downloadBook('books/level1.pptx', 'Discipleship_Level_1.pptx')"
+                        onclick="downloadBook('books/book1.pdf', 'Discipleship_Level_1.pdf')"
                     >
                         ⬇ Download
                     </button>
@@ -716,7 +715,7 @@ footer p {
                     <button
                         type="button"
                         class="read-button"
-                        onclick="openBook('books/level2.pptx', 'Discipleship Level 2')"
+                        onclick="openBook('books/book2.pdf', 'Discipleship Level 2')"
                     >
                         📖 Read
                     </button>
@@ -724,7 +723,7 @@ footer p {
                     <button
                         type="button"
                         class="download-button"
-                        onclick="downloadBook('books/level2.pptx', 'Discipleship_Level_2.pptx')"
+                        onclick="downloadBook('books/book2.pdf', 'Discipleship_Level_2.pdf')"
                     >
                         ⬇ Download
                     </button>
@@ -768,7 +767,7 @@ footer p {
                     <button
                         type="button"
                         class="read-button"
-                        onclick="openBook('books/level3.pptx', 'Discipleship Level 3')"
+                        onclick="openBook('books/book3.pdf', 'Discipleship Level 3')"
                     >
                         📖 Read
                     </button>
@@ -776,7 +775,7 @@ footer p {
                     <button
                         type="button"
                         class="download-button"
-                        onclick="downloadBook('books/level3.pptx', 'Discipleship_Level_3.pptx')"
+                        onclick="downloadBook('books/book3.pdf', 'Discipleship_Level_3.pdf')"
                     >
                         ⬇ Download
                     </button>
@@ -826,7 +825,7 @@ footer p {
 </div>
 
 
-<!-- POWERPOINT READER -->
+<!-- PDF READER -->
 
 <div id="reader-screen">
 
@@ -970,30 +969,13 @@ document
 
 
 /* =========================
-   READ POWERPOINT ONLINE
+   READ PDF ONLINE
 ========================= */
 
 function openBook(file, title) {
 
-    /*
-       Create the FULL public Netlify URL.
-
-       Example:
-       https://your-site.netlify.app/books/level1.pptx
-    */
-
     const fullUrl =
         new URL(file, window.location.href).href;
-
-    /*
-       Microsoft Office online viewer
-       will open the PowerPoint inside
-       the website instead of downloading it.
-    */
-
-    const viewerUrl =
-        "https://view.officeapps.live.com/op/embed.aspx?src=" +
-        encodeURIComponent(fullUrl);
 
     document
         .getElementById("readerTitle")
@@ -1001,7 +983,7 @@ function openBook(file, title) {
 
     document
         .getElementById("readerFrame")
-        .src = viewerUrl;
+        .src = fullUrl;
 
     document
         .getElementById("reader-screen")
@@ -1030,7 +1012,7 @@ function closeBook() {
 
 
 /* =========================
-   DOWNLOAD POWERPOINT
+   DOWNLOAD PDF
 ========================= */
 
 async function downloadBook(file, filename) {
@@ -1040,7 +1022,7 @@ async function downloadBook(file, filename) {
         const response = await fetch(file);
 
         if (!response.ok) {
-            throw new Error("PowerPoint not found.");
+            throw new Error("Book not found.");
         }
 
         const blob = await response.blob();
@@ -1065,7 +1047,7 @@ async function downloadBook(file, filename) {
     } catch (error) {
 
         alert(
-            "The PowerPoint could not be downloaded. Make sure the file is inside the books folder and has the correct name."
+            "The book could not be downloaded. Make sure the PDF is inside the books folder and has the correct name."
         );
 
     }
@@ -1075,4 +1057,3 @@ async function downloadBook(file, filename) {
 
 </body>
 </html>
-```
